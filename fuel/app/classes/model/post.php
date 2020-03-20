@@ -1,13 +1,11 @@
 <?php
 
-namespace Model;
 
-class Model_Posts extends \Model_Crud
+class Model_Post extends Orm\Model
 {
-    // Set the table to use
     protected static $_table_name = 'posts';
 
-    protected static $_created_at = 'create_date';
+    protected static $_primary_key = array('id');
 
-    protected static $_mysql_timestamp = true;
+    protected static $_properties = array('id', 'title', 'category', 'body', 'tags', 'create_date');
 }
