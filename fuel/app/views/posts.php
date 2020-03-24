@@ -30,7 +30,7 @@
     <div class="container">
         <nav class="blog-nav">
             <a class="blog-nav-item active" href="/">Home</a>
-            <a class="blog-nav-item" href="#">Add Post</a>
+            <?= Html::anchor(Router::get('add_post'), 'Add Post', ['class' => 'blog-nav-item']); ?>
     </div>
 </div>
 
