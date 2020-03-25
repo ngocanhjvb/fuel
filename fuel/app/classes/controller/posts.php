@@ -15,9 +15,16 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
 
     public function action_view()
     {
-        $id = $this->param('id');
-        $post = Model_Post::find($id);
-        $data = ['post' => $post];
+        $allTags = Model_Tag::find('all');
+        $post = Model_Post::find($this->param('id'));
+        $currentTags = $post->tags;
+        $tags = array_diff_key($allTags, $currentTags);
+
+        $data = [
+            'post' => $post,
+            'tags' => $tags,
+            'currentTags' => $currentTags
+        ];
         $this->template->title = 'Blog Post';
         $this->template->content = View::forge('posts/view', $data, false);
     }
@@ -48,6 +55,26 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
         $this->template->title = 'Blog Post';
         $this->template->content = View::forge('posts/add', $data);
     }
+
+
+    public function action_addTag()
+    {
+        $post = Model_Post::find($this->param('post'));
+        $post->tags[] = Model_Tag::find($this->param('tag'));
+        $post->save();
+        Session::set_flash('success', e('Added tag'));
+        \Fuel\Core\Response::redirect_back();
+    }
+
+    public function action_removeTag()
+    {
+        $post = Model_Post::find($this->param('post'));
+        unset($post->tags[$this->param('tag')]);
+        $post->save();
+        Session::set_flash('success', e('Removed tag'));
+        \Fuel\Core\Response::redirect_back();
+    }
+
 
     private function beforeValidate()
     {

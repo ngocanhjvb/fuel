@@ -7,7 +7,7 @@ class Model_Post extends Orm\Model
 
     protected static $_primary_key = array('id');
 
-    protected static $_properties = array('id', 'title', 'category_id', 'body', 'tags', 'create_date');
+    protected static $_properties = array('id', 'title', 'category_id', 'body', 'create_date');
 
     protected static $_observers = array(
         'Orm\\Observer_CreatedAt' => array(
