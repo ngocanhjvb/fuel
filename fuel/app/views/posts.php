@@ -15,7 +15,6 @@
     <script type="text/javascript"
             src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=xU4UxT2YojUn6U0qFSB3ORH9M0eDhNZJbz4FuhlPV11_71kgFkuxcHNTYCoIYK8XsEISETdmVctyrDqNOvW_JwczJscD4RQKdZ2bc_rN7QY"
             charset="UTF-8"></script>
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,6 +39,11 @@
         <h1 class="blog-title">The Fuel Blog</h1>
         <p class="lead blog-description">The fuelPhp blog with Bootstrap.</p>
     </div>
+    <?php if (\Fuel\Core\Session::get_flash('error')) : ?>
+        <div class="alert alert-danger">
+            <?= Session::get_flash('error') ?>
+        </div>
+    <?php endif; ?>
 
     <div class="row">
 

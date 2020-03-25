@@ -7,6 +7,9 @@ return array (
       'default' => 
       array (
         0 => '001_posts',
+        1 => '002_categories',
+        2 => '003_tags',
+        3 => '004_tag_post',
       ),
     ),
     'module' => 

@@ -39,7 +39,14 @@ return array(
      */
 
     'hello(/:name)?' => array('welcome/hello', 'name' => 'hello'),
+    // Post
     '/' => array('posts/index', 'name' => 'index'),
     'add-post' => array('posts/add', 'name' => 'add_post'),
     'view-post/(:id)' => array('posts/view/(:id)', 'name' => 'view_post'),
+
+    // Category
+    '/categories' => array('categories/index', 'name' => 'categories'),
+    'add-category' => array('categories/add', 'name' => 'add_category'),
+    'edit-category/(:id)' => array('categories/edit/(:id)', 'name' => 'edit_category'),
+    'view-category/(:id)' => array('categories/view/(:id)', 'name' => 'view_category'),
 );

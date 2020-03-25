@@ -20,12 +20,16 @@ if (Session::get_flash('oldRequest')) {
                     <span class="help-block"><?= !empty($errors['title']) ? $errors['title']->get_message('something not good') : '' ?></span>
                 </div>
 
-                <div class="form-group <?= !empty($errors['category']) ? 'has-error' : '' ?>">
-                    <label for="category">Post Category</label>
-                    <input type="text" class="form-control" id="category" name="category" placeholder="post's category"
-                           value="<?= !empty($oldRequest['category']) ? $oldRequest['category'] : '' ?>">
-                    <span class="help-block"><?= !empty($errors['category']) ? $errors['category'] : '' ?></span>
-
+                <div class="form-group <?= !empty($errors['category_id']) ? 'has-error' : '' ?>">
+                    <label for="category_id">Post Category</label>
+                    <select name="category_id" id="category_id" class="form-control">
+                        <?php if (count($categories) > 0):
+                            foreach ($categories as $category): ?>
+                                <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                            <?php endforeach;
+                        endif; ?>
+                    </select>
+                    <span class="help-block"><?= !empty($errors['category_id']) ? $errors['category_id'] : '' ?></span>
                 </div>
 
                 <div class="form-group <?= !empty($errors['body']) ? 'has-error' : '' ?>">

@@ -24,13 +24,15 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
 
     public function action_add()
     {
+        $categories = Model_Category::find('all');
+        $data = ['categories' => $categories];
         if (Input::method() == 'POST') {
             $val = $this->beforeValidate();
 
             if ($val->run()) {
                 $post = Model_Post::forge(array(
                     'title' => Input::post('title'),
-                    'category' => Input::post('category'),
+                    'category_id' => Input::post('category_id'),
                     'body' => Input::post('body'),
                     'tags' => Input::post('tags'),
                 ));
@@ -44,14 +46,14 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
             }
         }
         $this->template->title = 'Blog Post';
-        $this->template->content = View::forge('posts/add');
+        $this->template->content = View::forge('posts/add', $data);
     }
 
     private function beforeValidate()
     {
         $val = Validation::forge();
         $val->add_field('title', 'Title', 'required|min_length[3]');
-        $val->add_field('category', 'Category', 'required|min_length[3]');
+        $val->add_field('category_id', 'Category', 'required');
         $val->add_field('body', 'Body', 'required|min_length[8]');
         $val->add_field('tags', 'Tag', 'required|min_length[3]');
         return $val;
