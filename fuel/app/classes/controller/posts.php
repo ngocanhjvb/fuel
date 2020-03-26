@@ -31,23 +31,30 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
 
     public function action_add()
     {
+
         $categories = Model_Category::find('all');
         $data = ['categories' => $categories];
         if (Input::method() == 'POST') {
             $val = $this->beforeValidate();
-
-            if ($val->run()) {
+            $images = $this->uploadImage();
+            $imagesErr = Upload::get_errors();
+            if ($val->run() && empty($imagesErr)) {
                 $post = Model_Post::forge(array(
                     'title' => Input::post('title'),
                     'category_id' => Input::post('category_id'),
                     'body' => Input::post('body'),
+                    'images' => $images[0]['saved_as'],
                 ));
                 $post->save();
                 Session::set_flash('success', e('Added post #' . $post->id . '.'));
                 Response::redirect(\Fuel\Core\Router::get('index'));
 
             } else {
-                Session::set_flash('errors', $val->error());
+                $errors = $val->error();
+                if (!empty($imagesErr)) {
+                    $errors['images'] = $imagesErr[0]['errors'][0]['message'];
+                }
+                Session::set_flash('errors', $errors);
                 Session::set_flash('oldRequest', $val->validated());
             }
         }
@@ -82,6 +89,20 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
         $val->add_field('category_id', 'Category', 'required');
         $val->add_field('body', 'Body', 'required|min_length[8]');
         return $val;
+    }
+
+    private function uploadImage()
+    {
+        $config = array(
+            'path' => DOCROOT . DS . 'files' . DS . 'test',
+            'randomize' => true,
+            'ext_whitelist' => array('png'),
+        );
+        Upload::process($config);
+        if (Upload::is_valid()) {
+            Upload::save();
+            return Upload::get_files();
+        }
     }
 
 

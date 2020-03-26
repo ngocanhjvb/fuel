@@ -10,7 +10,7 @@ if (Session::get_flash('oldRequest')) {
     <div class="panel panel-default">
         <div class="panel-heading">Add Post</div>
         <div class="panel-body">
-            <form action="<?= Router::get('add_post') ?>" method="POST">
+            <form action="<?= Router::get('add_post') ?>" method="POST" enctype='multipart/form-data'>
                 <input type="hidden" name="<?php echo \Config::get('security.csrf_token_key'); ?>"
                        value="<?php echo \Security::fetch_token(); ?>"/>
                 <div class="form-group <?= !empty($errors['title']) ? 'has-error' : '' ?>">
@@ -37,6 +37,16 @@ if (Session::get_flash('oldRequest')) {
                     <input type="text" class="form-control" id="body" name="body" placeholder="post's body"
                            value="<?= !empty($oldRequest['body']) ? $oldRequest['body'] : '' ?>">
                     <span class="help-block"><?= !empty($errors['body']) ? $errors['body'] : '' ?></span>
+                </div>
+
+
+                <div class="form-group <?= !empty($errors['images']) ? 'has-error' : '' ?>">
+                    <input type="file" class="form-control hidden" id="images" name="images[]"
+                           value="<?= !empty($oldRequest['images']) ? $oldRequest['images'] : '' ?>">
+                    <label for="images" class="cursor">
+                        <?= Asset::img('import-img.png', array('class' => 'thumbnail', 'width' => '100px')); ?>
+                    </label>
+                    <span class="help-block"><?= !empty($errors['images']) ? $errors['images'] : '' ?></span>
                 </div>
 
 

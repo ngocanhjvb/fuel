@@ -12,7 +12,7 @@ class Posts
             'title' => array('type' => 'varchar', 'constraint' => 255),
             'category_id' => array('type' => 'int', 'constraint' => 10),
             'body' => array('type' => 'text'),
-            'tags' => array('type' => 'varchar', 'constraint' => 255),
+            'images' => array('type' => 'varchar', 'constraint' => 255),
             'create_date' => array('type' => 'datetime', 'constraint' => 4),
         ), array('id'));
     }
