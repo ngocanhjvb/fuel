@@ -94,7 +94,7 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
     private function uploadImage()
     {
         $config = array(
-            'path' => DOCROOT . DS . 'files' . DS . 'test',
+            'path' => DOCROOT . DS . 'assets' . DS . 'img' . DS . 'posts',
             'randomize' => true,
             'ext_whitelist' => array('png'),
         );

@@ -1,4 +1,7 @@
 <div class="blog-post">
+    <div class="image-post">
+        <?= Asset::img('posts/' . $post->images, array('class' => 'thumbnail', 'width' => '400px')); ?>
+    </div>
     <h2 class="blog-post-title"><?= $post->title ?></h2>
     <p class="blog-post-meta"><?= $post->create_date ?></p>
     <?php echo $post->body; ?>
