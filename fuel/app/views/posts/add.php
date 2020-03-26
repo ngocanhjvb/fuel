@@ -39,12 +39,6 @@ if (Session::get_flash('oldRequest')) {
                     <span class="help-block"><?= !empty($errors['body']) ? $errors['body'] : '' ?></span>
                 </div>
 
-                <div class="form-group <?= !empty($errors['tags']) ? 'has-error' : '' ?>">
-                    <label for="tag">Post Tag</label>
-                    <input type="text" class="form-control" id="tags" name="tags" placeholder="post's tags"
-                           value="<?= !empty($oldRequest['tags']) ? $oldRequest['tags'] : '' ?>">
-                    <span class="help-block"><?= !empty($errors['tags']) ? $errors['tags'] : '' ?></span>
-                </div>
 
                 <button type="submit" class="btn btn-success">Add Post</button>
             </form>

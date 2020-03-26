@@ -41,7 +41,6 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
                     'title' => Input::post('title'),
                     'category_id' => Input::post('category_id'),
                     'body' => Input::post('body'),
-                    'tags' => Input::post('tags'),
                 ));
                 $post->save();
                 Session::set_flash('success', e('Added post #' . $post->id . '.'));
@@ -82,7 +81,6 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
         $val->add_field('title', 'Title', 'required|min_length[3]');
         $val->add_field('category_id', 'Category', 'required');
         $val->add_field('body', 'Body', 'required|min_length[8]');
-        $val->add_field('tags', 'Tag', 'required|min_length[3]');
         return $val;
     }
 
