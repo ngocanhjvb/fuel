@@ -17,7 +17,7 @@ if (Session::get_flash('oldRequest')) {
                     <label for="title">Post Title</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="post's title"
                            value="<?= !empty($oldRequest['title']) ? $oldRequest['title'] : '' ?>">
-                    <span class="help-block"><?= !empty($errors['title']) ? $errors['title']->get_message('something not good') : '' ?></span>
+                    <span class="help-block"><?= !empty($errors['title']) ? $errors['title']->get_message('Trường :label không được để trống') : '' ?></span>
                 </div>
 
                 <div class="form-group <?= !empty($errors['category_id']) ? 'has-error' : '' ?>">
