@@ -51,4 +51,7 @@ return array(
     'add-category' => array('categories/add', 'name' => 'add_category'),
     'edit-category/(:id)' => array('categories/edit/(:id)', 'name' => 'edit_category'),
     'view-category/(:id)' => array('categories/view/(:id)', 'name' => 'view_category'),
+
+    // Mail
+    'send-mail' => array('posts/sendMail', 'name' => 'send_mail'),
 );

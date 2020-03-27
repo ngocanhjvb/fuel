@@ -82,6 +82,40 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
     }
 
 
+    public function action_sendMail()
+    {
+        if (Input::method() == 'POST') {
+            $val = $this->beforeValidateMail();
+            if ($val->run()) {
+                try {
+                    $content['content'] = Input::post('body');
+                    $body = View::forge('mails/template', $content);
+                    \Package::load('email');
+                    Email::forge()
+                        ->from('testmaillaravel64@gmail.com')
+                        ->to(Input::post('email_address'))
+                        ->subject(Input::post('title'))
+                        ->html_body($body)
+                        ->send();
+                    Session::set_flash('success', e('Send Mail to' . Input::post('email_address')));
+                    Response::redirect_back();
+
+                } catch (EmailSendingFailedException $exc) {
+                    Log::error($exc->getMessage());
+                }
+
+
+            } else {
+                $errors = $val->error();
+                Session::set_flash('errors', $errors);
+                Session::set_flash('oldRequest', $val->validated());
+            }
+        }
+        $this->template->title = 'Send Mail';
+        $this->template->content = View::forge('posts/mail');
+    }
+
+
     private function beforeValidate()
     {
         $val = Validation::forge();
@@ -90,6 +124,17 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
         $val->add_field('body', 'Body', 'required|min_length[8]');
         return $val;
     }
+
+
+    private function beforeValidateMail()
+    {
+        $val = Validation::forge();
+        $val->add_field('title', 'Title', 'required|min_length[3]');
+        $val->add_field('email_address', 'Email Address', 'required|valid_email');
+        $val->add_field('body', 'Body', 'required|min_length[8]');
+        return $val;
+    }
+
 
     private function uploadImage()
     {

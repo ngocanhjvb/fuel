@@ -30,6 +30,7 @@
         <nav class="blog-nav">
             <a class="blog-nav-item active" href="/">Home</a>
             <?= Html::anchor(Router::get('add_post'), 'Add Post', ['class' => 'blog-nav-item']); ?>
+            <?= Html::anchor(Router::get('send_mail'), 'SendMail', ['class' => 'blog-nav-item']); ?>
     </div>
 </div>
 
