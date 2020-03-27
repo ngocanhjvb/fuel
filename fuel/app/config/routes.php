@@ -42,6 +42,7 @@ return array(
     // Post
     '/' => array('posts/index', 'name' => 'index'),
     'add-post' => array('posts/add', 'name' => 'add_post'),
+    'edit-post/(:id)' => array('posts/edit/(:id)', 'name' => 'edit_post'),
     'view-post/(:id)' => array('posts/view/(:id)', 'name' => 'view_post'),
     'set-tags/(:post)/(:tag)' => array('posts/addTag/(:post)/(:tag)', 'name' => 'set_tags'),
     'detach-tags/(:post)/(:tag)' => array('posts/removeTag/(:post)/(:tag)', 'name' => 'detach_tags'),

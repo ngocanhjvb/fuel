@@ -42,5 +42,7 @@
             </div>
         <?php endforeach; ?>
     </div>
+    <?= Html::anchor(Router::get('edit_post', ['id' => $post->id]), 'Edit', ['class' => 'btn btn-default']); ?>
+
 
 </div>

@@ -63,6 +63,41 @@ class Controller_Posts extends \Fuel\Core\Controller_Template
     }
 
 
+    public function action_edit()
+    {
+        $post = Model_Post::find($this->param('id'));
+        $categories = Model_Category::find('all');
+        $data = [
+            'categories' => $categories,
+            'post' => $post
+        ];
+        if (Input::method() == 'POST') {
+            $val = $this->beforeValidate();
+            $images = $this->uploadImage();
+            $imagesErr = Upload::get_errors();
+            if ($val->run() && empty($imagesErr)) {
+                $post->title = Input::post('title');
+                $post->category_id = Input::post('category_id');
+                $post->body = Input::post('body');
+                $post->saved_as = $images[0]['saved_as'];
+                $post->save();
+                Session::set_flash('success', e('Edit post #' . $post->name . '.'));
+                Response::redirect(\Fuel\Core\Router::get('index'));
+
+            } else {
+                $errors = $val->error();
+                if (!empty($imagesErr)) {
+                    $errors['images'] = $imagesErr[0]['errors'][0]['message'];
+                }
+                Session::set_flash('errors', $errors);
+                Session::set_flash('oldRequest', $val->validated());
+            }
+        }
+        $this->template->title = 'Blog Post';
+        $this->template->content = View::forge('posts/edit', $data);
+    }
+
+
     public function action_addTag()
     {
         $post = Model_Post::find($this->param('post'));
